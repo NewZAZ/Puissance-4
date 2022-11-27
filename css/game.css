@@ -1,0 +1,13 @@
+#game_table{
+    display: flex;
+    justify-content: center;
+}
+
+.table {
+    border-collapse: collapse;
+}
+
+.table td{
+    border: black solid;
+
+}
