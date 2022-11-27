@@ -1,0 +1,25 @@
+.main-header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    font-size: xx-large;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+li {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+a:hover {
+    font-size: xxx-large;
+}
