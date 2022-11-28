@@ -89,13 +89,9 @@ function checkColumn() {
 
 function checkDiagonal(x, y) {
 
-    console.log(x, y)
     let length = board.length
 
-    let temp_x = x
-    let temp_y = y
 
-    console.log(temp_x, temp_y)
 
     let points = 0;
     if ((x == 0 && y == length - 1) || (x == length - 1 && y == 0)) {
@@ -130,10 +126,10 @@ function checkDiagonal(x, y) {
         }
     } else {
 
+        let temp_x = x
+        let temp_y = y
 
         const total = [0, 0]
-
-        console.log(x,y)
 
         while (x > 0 && y < length - 1) {
             x -= 1
@@ -150,13 +146,14 @@ function checkDiagonal(x, y) {
                 total[0] = 0
                 break;
             }
+            console.log(points)
             if(points >= 4){
                 return true;
             }
         }
 
-        let x = temp_x;
-        let y = temp_y;
+        x = temp_x;
+        y = temp_y;
 
         while (x > 0 && y > 0) {
             x -= 1
@@ -172,6 +169,8 @@ function checkDiagonal(x, y) {
             }else if(total[1] != 0){
                 total[1] = 0
             }
+
+            console.log(points)
             if(points >= 4){
                 return true;
             }
