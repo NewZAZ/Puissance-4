@@ -3,7 +3,7 @@ const board = []
 let currentPlayer = 1;
 
 function initBoard(size) {
-
+    document.getElementById("win").close()
 
     let tempBoard;
     for (let x = 0; x < size; x++) {
@@ -55,7 +55,7 @@ function checkWin() {
     }
 
     if (checkRow()) {
-        console.log("GG 2")
+        document.getElementById("win").showModal()
     }
 
     if (checkDiagonal()) {
