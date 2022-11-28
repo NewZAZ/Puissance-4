@@ -49,7 +49,7 @@ function showBoard() {
 
 initBoard(10)
 
-function checkWin() {
+function checkWin(x, y) {
     if (checkColumn()) {
         console.log("GG 1")
     }
@@ -58,7 +58,7 @@ function checkWin() {
         document.getElementById("win").showModal()
     }
 
-    if (checkDiagonal()) {
+    if (checkDiagonal(x, y)) {
         console.log("GG 3")
     }
 
@@ -87,8 +87,98 @@ function checkColumn() {
     return false;
 }
 
-function checkDiagonal() {
-    //TODO
+function checkDiagonal(x, y) {
+
+    console.log(x, y)
+    let length = board.length
+
+    let temp_x = x
+    let temp_y = y
+
+    console.log(temp_x, temp_y)
+
+    let points = 0;
+    if ((x == 0 && y == length - 1) || (x == length - 1 && y == 0)) {
+
+        for (let i = 0; i < length; i++) {
+            let amount = board[i][-(i + 1)]
+            if (amount == player) {
+                points += 1
+            } else if (amount == 0) {
+                points = 0;
+            }
+
+            if(points >= 4){
+                return true;
+            }
+        }
+    }
+
+
+    if ((x == 0 && y == 0) || (x == length - 1 && y == length - 1)) {
+        for (let i = 0; i < length; i++) {
+            let amount = board[i][i]
+            if (amount == player) {
+                points += 1;
+            } else if (amount == 0) {
+                points = 0;
+            }
+
+            if(points >= 4){
+                return true;
+            }
+        }
+    } else {
+
+
+        const total = [0, 0]
+
+        console.log(x,y)
+
+        while (x > 0 && y < length - 1) {
+            x -= 1
+            y += 1
+        }
+
+        while (x <= length - 1 && y >= 0) {
+            let amount = board[x][y]
+            x += 1
+            y -= 1
+            if (amount === player) {
+                total[0] += 1
+            } else if (total[0] !== 0) {
+                total[0] = 0
+                break;
+            }
+            if(points >= 4){
+                return true;
+            }
+        }
+
+        let x = temp_x;
+        let y = temp_y;
+
+        while (x > 0 && y > 0) {
+            x -= 1
+            y -= 1
+        }
+
+        while (x <= length - 1 && y <= length - 1){
+            let amount = board[x][y]
+            x += 1
+            y += 1
+            if(amount === player){
+                total[1] += 1
+            }else if(total[1] != 0){
+                total[1] = 0
+            }
+            if(points >= 4){
+                return true;
+            }
+        }
+    }
+
+
 }
 
 showBoard()
@@ -121,11 +211,12 @@ function checkRow() {
 addEventListener("click", ev => {
     const ID = ev.target.id;
 
-    const Y = parseInt(ID);
+    let y = parseInt(ID);
 
-    if (!columnIsFull(Y)) {
-        board[getLastXByColumn(Y) - 1][Y] = currentPlayer;
-        checkWin(getLastXByColumn(Y) - 1, Y)
+    if (!columnIsFull(y)) {
+        let x = getLastXByColumn(y) - 1
+        board[x][y] = currentPlayer;
+        checkWin(x, y)
         switchPlayer();
         showBoard()
     } else {
