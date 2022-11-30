@@ -1,10 +1,11 @@
-const board = []
+let board = []
 
 let currentPlayer = 1;
 
 function initBoard(size) {
     document.getElementById("win").close()
 
+    board = []
     let tempBoard;
     for (let x = 0; x < size; x++) {
         tempBoard = []
@@ -47,31 +48,25 @@ function showBoard() {
     GAME.innerHTML = insertion;
 }
 
-initBoard(10)
-
 function checkWin(x, y) {
-    if (checkColumn()) {
-        console.log("GG 1")
-    }
-
-    if (checkRow()) {
-        document.getElementById("win").showModal()
-    }
-
-    if (checkDiagonal(x, y)) {
-        console.log("GG 3")
+    if (checkColumn() || checkRow() || checkDiagonal(x,y)) {
+        var elementById = document.getElementById("win");
+        console.log(elementById.innerHTML)
+        elementById.innerHTML = "<h1>Bravo !</h1>"
+        elementById.innerHTML += "<p>Le joueur "+currentPlayer+" a gagner !</p>"
+        elementById.innerHTML += "<button onclick='start()'>Rejouer !</button>"
+        elementById.showModal()
     }
 
 }
 
 function checkColumn() {
-    player = currentPlayer
     for (let y = 0; y < board.length; y++) {
-        countSameColor = 0
+        let countSameColor = 0
 
         for (let x = 0; x < board.length; x++) {
 
-            if (player == board[x][y]) {
+            if (currentPlayer == board[x][y]) {
                 countSameColor++;
             } else if (countSameColor > 0) {
                 countSameColor = 0
@@ -94,13 +89,13 @@ function checkDiagonal(x, y) {
 
 
     let points = 0;
-    if ((x == 0 && y == length - 1) || (x == length - 1 && y == 0)) {
+    if ((x === 0 && y === length - 1) || (x === length - 1 && y === 0)) {
 
         for (let i = 0; i < length; i++) {
             let amount = board[i][-(i + 1)]
-            if (amount == player) {
+            if (amount === currentPlayer) {
                 points += 1
-            } else if (amount == 0) {
+            } else if (amount !== currentPlayer) {
                 points = 0;
             }
 
@@ -111,12 +106,12 @@ function checkDiagonal(x, y) {
     }
 
 
-    if ((x == 0 && y == 0) || (x == length - 1 && y == length - 1)) {
+    if ((x === 0 && y === 0) || (x === length - 1 && y === length - 1)) {
         for (let i = 0; i < length; i++) {
             let amount = board[i][i]
-            if (amount == player) {
+            if (amount === currentPlayer) {
                 points += 1;
-            } else if (amount == 0) {
+            } else if (amount !== currentPlayer) {
                 points = 0;
             }
 
@@ -140,14 +135,14 @@ function checkDiagonal(x, y) {
             let amount = board[x][y]
             x += 1
             y -= 1
-            if (amount === player) {
+            if (amount === currentPlayer) {
                 total[0] += 1
-            } else if (total[0] !== 0) {
+            } else if (amount !== currentPlayer && total[0] !== 0) {
                 total[0] = 0
                 break;
             }
-            console.log(points)
-            if(points >= 4){
+
+            if(total[0] >= 4){
                 return true;
             }
         }
@@ -164,14 +159,13 @@ function checkDiagonal(x, y) {
             let amount = board[x][y]
             x += 1
             y += 1
-            if(amount === player){
+            if(amount === currentPlayer){
                 total[1] += 1
-            }else if(total[1] != 0){
+            }else if(amount !== currentPlayer && total[1] !== 0){
                 total[1] = 0
             }
 
-            console.log(points)
-            if(points >= 4){
+            if(total[1] >= 4){
                 return true;
             }
         }
@@ -180,16 +174,13 @@ function checkDiagonal(x, y) {
 
 }
 
-showBoard()
-
 
 function checkRow() {
-    player = currentPlayer
     for (let x = 0; x < board.length; x++) {
-        countSameColor = 0
+        let countSameColor = 0
         for (let y = 0; y < board.length; y++) {
 
-            if (player == board[x][y]) {
+            if (currentPlayer === board[x][y]) {
                 countSameColor++;
             } else if (countSameColor > 0) {
                 countSameColor = 0
@@ -218,14 +209,12 @@ addEventListener("click", ev => {
         checkWin(x, y)
         switchPlayer();
         showBoard()
-    } else {
-        console.log("nop")
     }
 });
 
 function columnIsFull(y) {
     for (let x = 0; x < board.length; x++) {
-        if (board[x][y] == 0) {
+        if (board[x][y] === 0) {
             return false;
         }
     }
@@ -234,7 +223,7 @@ function columnIsFull(y) {
 
 function getLastXByColumn(y) {
     for (let x = 0; x < board.length; x++) {
-        if (board[x][y] != 0) {
+        if (board[x][y] !== 0) {
             return x;
         }
     }
@@ -251,3 +240,11 @@ function switchPlayer() {
             break;
     }
 }
+
+function start(){
+    initBoard(10)
+    showBoard()
+}
+
+
+start()
