@@ -2,20 +2,28 @@ let board = []
 
 let currentPlayer = 1;
 
-function initBoard(size) {
+let currentTimer = 0
+
+function initBoard(xSize, ySize) {
     document.getElementById("win").close()
 
     board = []
     let tempBoard;
-    for (let x = 0; x < size; x++) {
+    for (let x = 0; x < xSize; x++) {
         tempBoard = []
-        for (let y = 0; y < size; y++) {
+        for (let y = 0; y < ySize; y++) {
             tempBoard.push(0)
         }
         board.push(tempBoard)
 
     }
 }
+
+setInterval(() =>{
+    currentTimer++
+    const elementById = document.getElementById("timer");
+    elementById.innerText = currentTimer
+}, 1000)
 
 
 function showBoard() {
@@ -243,7 +251,8 @@ function switchPlayer() {
 }
 
 function start() {
-    initBoard(10)
+    initBoard(7, 6)
+    currentTimer = 0
     showBoard()
 }
 
