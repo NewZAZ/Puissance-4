@@ -49,11 +49,11 @@ function showBoard() {
 }
 
 function checkWin(x, y) {
-    if (checkColumn() || checkRow() || checkDiagonal(x,y)) {
+    if (checkColumn() || checkRow() || checkDiagonal(x, y)) {
         var elementById = document.getElementById("win");
         console.log(elementById.innerHTML)
         elementById.innerHTML = "<h1>Bravo !</h1>"
-        elementById.innerHTML += "<p>Le joueur "+currentPlayer+" a gagner !</p>"
+        elementById.innerHTML += "<p>Le joueur " + currentPlayer + " a gagner !</p>"
         elementById.innerHTML += "<button onclick='start()'>Rejouer !</button>"
         elementById.showModal()
     }
@@ -87,7 +87,6 @@ function checkDiagonal(x, y) {
     let length = board.length
 
 
-
     let points = 0;
     if ((x === 0 && y === length - 1) || (x === length - 1 && y === 0)) {
 
@@ -99,7 +98,7 @@ function checkDiagonal(x, y) {
                 points = 0;
             }
 
-            if(points >= 4){
+            if (points >= 4) {
                 return true;
             }
         }
@@ -115,7 +114,7 @@ function checkDiagonal(x, y) {
                 points = 0;
             }
 
-            if(points >= 4){
+            if (points >= 4) {
                 return true;
             }
         }
@@ -124,51 +123,53 @@ function checkDiagonal(x, y) {
         let temp_x = x
         let temp_y = y
 
-        const total = [0, 0]
+        const total = [1, 1]
 
-        while (x > 0 && y < length - 1) {
-            x -= 1
-            y += 1
-        }
-
-        while (x <= length - 1 && y >= 0) {
-            let amount = board[x][y]
-            x += 1
-            y -= 1
-            if (amount === currentPlayer) {
-                total[0] += 1
-            } else if (amount !== currentPlayer && total[0] !== 0) {
-                total[0] = 0
-                break;
+        for (let i = 1; i < 4; i++) {
+            if (temp_x - i >= 0 && temp_y - i >= 0) {
+                let amount = board[temp_x - i][temp_y - i]
+                if (amount === currentPlayer) {
+                    total[0] += 1
+                } else if (amount !== currentPlayer && total[0] !== 1) {
+                    total[0] = 1
+                }
+            } else if (temp_x + i < board.length) {
+                if (temp_y + i < board[temp_x + i].length) {
+                    let amount = board[temp_x + i][temp_y + i]
+                    if (amount === currentPlayer) {
+                        total[0] += 1
+                    } else if (amount !== currentPlayer && total[0] !== 1) {
+                        total[0] = 1
+                    }
+                }
             }
-
-            if(total[0] >= 4){
+            if (total[0] >= 4) {
                 return true;
             }
-        }
 
-        x = temp_x;
-        y = temp_y;
+            if(temp_x +i < board.length && temp_y -i >= 0){
 
-        while (x > 0 && y > 0) {
-            x -= 1
-            y -= 1
-        }
-
-        while (x <= length - 1 && y <= length - 1){
-            let amount = board[x][y]
-            x += 1
-            y += 1
-            if(amount === currentPlayer){
-                total[1] += 1
-            }else if(amount !== currentPlayer && total[1] !== 0){
-                total[1] = 0
+                let amount = board[temp_x + i][temp_y - i]
+                if (amount === currentPlayer) {
+                    total[1] += 1
+                } else if (amount !== currentPlayer && total[1] !== 1) {
+                    total[1] = 1
+                }
+            }else if(temp_x -i >= 0 && temp_y +i < board[temp_x -i].length){
+                let amount = board[temp_x - i][temp_y + i]
+                if (amount === currentPlayer) {
+                    total[1] += 1
+                } else if (amount !== currentPlayer && total[1] !== 1) {
+                    total[1] = 1
+                }
             }
 
-            if(total[1] >= 4){
+            if (total[1] >= 4) {
                 return true;
             }
+
         }
+
     }
 
 
@@ -241,7 +242,7 @@ function switchPlayer() {
     }
 }
 
-function start(){
+function start() {
     initBoard(10)
     showBoard()
 }
