@@ -4,6 +4,8 @@ let currentPlayer = 1;
 
 let currentTimer = 0
 
+let isStarted = false
+
 function initBoard(xSize, ySize) {
     document.getElementById("win").close()
 
@@ -17,13 +19,9 @@ function initBoard(xSize, ySize) {
         board.push(tempBoard)
 
     }
-}
 
-setInterval(() =>{
-    currentTimer++
-    const elementById = document.getElementById("timer");
-    elementById.innerText = currentTimer
-}, 1000)
+    console.log(board)
+}
 
 
 function showBoard() {
@@ -59,10 +57,9 @@ function showBoard() {
 function checkWin(x, y) {
     if (checkColumn() || checkRow() || checkDiagonal(x, y)) {
         var elementById = document.getElementById("win");
-        console.log(elementById.innerHTML)
         elementById.innerHTML = "<h1>Bravo !</h1>"
         elementById.innerHTML += "<p>Le joueur " + currentPlayer + " a gagner !</p>"
-        elementById.innerHTML += "<button onclick='start()'>Rejouer !</button>"
+        elementById.innerHTML += "<button onclick='preStart()'>Rejouer !</button>"
         elementById.showModal()
     }
 
@@ -74,7 +71,7 @@ function checkColumn() {
 
         for (let x = 0; x < board.length; x++) {
 
-            if (currentPlayer == board[x][y]) {
+            if (currentPlayer === board[x][y]) {
                 countSameColor++;
             } else if (countSameColor > 0) {
                 countSameColor = 0
@@ -155,7 +152,7 @@ function checkDiagonal(x, y) {
                 return true;
             }
 
-            if(temp_x +i < board.length && temp_y -i >= 0){
+            if (temp_x + i < board.length && temp_y - i >= 0) {
 
                 let amount = board[temp_x + i][temp_y - i]
                 if (amount === currentPlayer) {
@@ -163,7 +160,7 @@ function checkDiagonal(x, y) {
                 } else if (amount !== currentPlayer && total[1] !== 1) {
                     total[1] = 1
                 }
-            }else if(temp_x -i >= 0 && temp_y +i < board[temp_x -i].length){
+            } else if (temp_x - i >= 0 && temp_y + i < board[temp_x - i].length) {
                 let amount = board[temp_x - i][temp_y + i]
                 if (amount === currentPlayer) {
                     total[1] += 1
@@ -250,11 +247,80 @@ function switchPlayer() {
     }
 }
 
-function start() {
-    initBoard(7, 6)
-    currentTimer = 0
-    showBoard()
+addEventListener("click", ev => {
+    const ID = ev.target.id;
+
+    if (ID === 'preStart') {
+        let col = parseInt(document.getElementById("col").value)
+        let row = parseInt(document.getElementById("row").value)
+
+        if (isNaN(col) || isNaN(row)) {
+            alert("NOP")
+            return;
+        }
+
+
+        const elementById = document.getElementById("start");
+
+        start(col, row)
+
+        elementById.close()
+    }
+})
+
+function preStart() {
+    isStarted = false
+
+    const elementById = document.getElementById("start");
+    elementById.innerHTML = "<h1>Choisi la taille du puissance 4</h1>"
+    elementById.innerHTML += "<label> Colonnes"
+    elementById.innerHTML += "<input id='col' type='text'>"
+    elementById.innerHTML += "</label>"
+
+    elementById.innerHTML += "<label> Lignes"
+    elementById.innerHTML += "<input id='row' type='text'>"
+    elementById.innerHTML += "</label>"
+
+    elementById.innerHTML += "<button id='preStart'>Commencez !</button>"
+    elementById.showModal()
 }
 
+function start(xSize, ySize) {
+    initBoard(xSize, ySize)
+    currentTimer = 0
+    showBoard()
 
-start()
+    isStarted = true
+
+
+}
+
+setInterval(() => {
+    if (!isStarted) return
+    currentTimer++
+    const elementById = document.getElementById("timer");
+
+
+    let minute = Math.trunc(currentTimer / 60)
+    let seconds = currentTimer % 60
+
+    elementById.innerHTML = ""
+    if (minute > 0) {
+        if (minute < 10) {
+            elementById.innerText += "0"
+        }
+        elementById.innerText += minute
+        elementById.innerHTML+= ":"
+    }else {
+        elementById.innerText = "00:"
+    }
+    if (seconds < 10) {
+        elementById.innerText += "0"
+    }
+    elementById.innerText += seconds
+
+
+}, 200)
+
+
+preStart()
