@@ -1,0 +1,73 @@
+body{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background: linear-gradient(-45deg, rgb(2, 27, 62), #0d1c88, #0d7da6, #0bd1ce);
+	background-size: 400% 400%;
+	animation: gradient 12s ease infinite;
+}
+
+header{
+    margin-top: 5%;
+}
+
+.conteneur{
+	text-align: center;
+	position: relative;
+    top: 20%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+}
+
+.conteneur span{
+	display: block;
+}
+
+.Puissance4{
+	color: rgb(55, 98, 165);
+	font-size: 110px;
+	letter-spacing: 8px;
+	text-shadow: 0 0 3px #ffffff;
+}
+
+a{  
+    text-decoration: none;
+	font-style: normal;
+}
+
+a:hover {
+	font-size: 115px;
+}
+
+@keyframes gradient{
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+h1{
+    text-align: center;
+    font-size: 40px;
+    margin: 0;
+}
+
+h2{
+    text-align: center;
+    font-size: 40px;
+}
+
+section{
+    font-size: 20px;
+    text-align: center;
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 15px 15px;
+    width: 65%;
+    margin: auto;
+}
+

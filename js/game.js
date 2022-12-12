@@ -180,7 +180,6 @@ function checkDiagonal(x, y) {
 
 }
 
-
 function checkRow() {
     for (let x = 0; x < board.length; x++) {
         let countSameColor = 0
