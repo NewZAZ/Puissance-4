@@ -7,7 +7,7 @@ let currentTimer = 0
 let isStarted = false
 
 function initBoard(xSize, ySize) {
-    document.getElementById("win").close()
+
 
     board = []
     let tempBoard;
@@ -19,8 +19,6 @@ function initBoard(xSize, ySize) {
         board.push(tempBoard)
 
     }
-
-    console.log(board)
 }
 
 
@@ -56,11 +54,8 @@ function showBoard() {
 
 function checkWin(x, y) {
     if (checkColumn() || checkRow() || checkDiagonal(x, y)) {
-        var elementById = document.getElementById("win");
-        elementById.innerHTML = "<h1>Bravo !</h1>"
-        elementById.innerHTML += "<p>Le joueur " + currentPlayer + " a gagner !</p>"
-        elementById.innerHTML += "<button onclick='preStart()'>Rejouer !</button>"
-        elementById.showModal()
+
+        stop()
     }
 
 }
@@ -267,8 +262,23 @@ addEventListener("click", ev => {
     }
 })
 
+function stop(){
+    isStarted = false
+    currentTimer = 0
+
+    const elementById = document.getElementById("win");
+    elementById.innerHTML = "<h1>Bravo !</h1>"
+    elementById.innerHTML += "<p>Le joueur " + currentPlayer + " a gagner !</p>"
+    elementById.innerHTML += "<button onclick='preStart()'>Rejouer !</button>"
+    elementById.showModal()
+}
+
 function preStart() {
     isStarted = false
+    currentTimer = 0
+    document.getElementById("win").close()
+
+    showTime()
 
     const elementById = document.getElementById("start");
     elementById.innerHTML = "<h1>Choisi la taille du puissance 4</h1>"
@@ -286,7 +296,7 @@ function preStart() {
 
 function start(xSize, ySize) {
     initBoard(xSize, ySize)
-    currentTimer = 0
+
     showBoard()
 
     isStarted = true
@@ -297,6 +307,12 @@ function start(xSize, ySize) {
 setInterval(() => {
     if (!isStarted) return
     currentTimer++
+
+    showTime()
+
+}, 200)
+
+function showTime(){
     const elementById = document.getElementById("timer");
 
 
@@ -317,9 +333,7 @@ setInterval(() => {
         elementById.innerText += "0"
     }
     elementById.innerText += seconds
-
-
-}, 200)
+}
 
 
 preStart()
