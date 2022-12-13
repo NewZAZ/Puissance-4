@@ -268,7 +268,7 @@ function stop(){
 
     const elementById = document.getElementById("win");
     elementById.innerHTML = "<h1>Bravo !</h1>"
-    elementById.innerHTML += "<p>Le joueur " + currentPlayer + " a gagner !</p>"
+    elementById.innerHTML += "<p>Le joueur " + currentPlayer + " a gagné !</p>"
     elementById.innerHTML += "<button onclick='preStart()'>Rejouer !</button>"
     elementById.showModal()
 }
@@ -281,7 +281,7 @@ function preStart() {
     showTime()
 
     const elementById = document.getElementById("start");
-    elementById.innerHTML = "<h1>Choisi la taille du puissance 4</h1>"
+    elementById.innerHTML = "<h1>Choisissez la taille du puissance 4</h1>"
     elementById.innerHTML += "<label> Colonnes"
     elementById.innerHTML += "<input id='col' type='text'>"
     elementById.innerHTML += "</label>"
