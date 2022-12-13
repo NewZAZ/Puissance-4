@@ -6,7 +6,7 @@ let currentTimer = 0
 
 let isStarted = false
 
-let lastScore = []
+var lastScore = []
 
 let score = [0,0]
 
@@ -61,6 +61,12 @@ function checkWin(x, y) {
         score[currentPlayer-1] += 1
         lastScore.push(score)
         stop()
+        const elementById = document.getElementById("win");
+        elementById.innerHTML = "<h1>Bravo !</h1>"
+        elementById.innerHTML += "<p>Le joueur " + currentPlayer + " a gagné !</p>"
+        elementById.innerHTML += "<button onclick='preStart()'>Rejouer !</button>"
+        elementById.innerHTML += "<button onclick='cancel()'>Annuler</button>"
+        elementById.showModal()
     }
 
 }
@@ -214,8 +220,32 @@ addEventListener("click", ev => {
         checkWin(x, y)
         switchPlayer();
         showBoard()
+
+        if(boardIsFull()){
+            score[0] += 1
+            score[1] += 1
+
+            const elementById = document.getElementById("win");
+            elementById.innerHTML = "<h1>Malheuresement aucun joueur n'a gagné</h1>"
+            elementById.innerHTML += "<button onclick='preStart()'>Rejouer !</button>"
+            elementById.innerHTML += "<button onclick='cancel()'>Annuler</button>"
+            elementById.showModal()
+
+            stop()
+        }
     }
 });
+
+function boardIsFull(){
+    for (let x = 0; x < board.length; x++) {
+        for (let y = 0; y < board[x].length; y++) {
+            if(board[x][y] === 0){
+                return false
+            }
+        }
+    }
+    return true
+}
 
 function columnIsFull(y) {
     for (let x = 0; x < board.length; x++) {
@@ -271,12 +301,7 @@ function stop(){
     isStarted = false
     currentTimer = 0
 
-    const elementById = document.getElementById("win");
-    elementById.innerHTML = "<h1>Bravo !</h1>"
-    elementById.innerHTML += "<p>Le joueur " + currentPlayer + " a gagné !</p>"
-    elementById.innerHTML += "<button onclick='preStart()'>Rejouer !</button>"
-    elementById.innerHTML += "<button onclick='cancel()'>Annuler</button>"
-    elementById.showModal()
+
 }
 
 function cancel(){
