@@ -272,6 +272,7 @@ function stop(){
     elementById.innerHTML = "<h1>Bravo !</h1>"
     elementById.innerHTML += "<p>Le joueur " + currentPlayer + " a gagné !</p>"
     elementById.innerHTML += "<button onclick='preStart()'>Rejouer !</button>"
+    elementById.innerHTML += "<button onclick='cancel()'>Annuler</button>"
     elementById.showModal()
 }
 

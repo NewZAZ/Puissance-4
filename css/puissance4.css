@@ -1,8 +1,8 @@
 body{
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	animation: gradient 12s ease infinite;
+    background: linear-gradient(-45deg, rgb(2, 27, 62), #0d1c88, #0d7da6, #0bd1ce);
 	background-size: 400% 400%;
-	background: linear-gradient(-45deg, rgb(2, 27, 62), #0d1c88, #0d7da6, #0bd1ce) 
+	animation: gradient 12s ease infinite;
 }
 header{
 	margin-top: 5%;
@@ -32,7 +32,7 @@ a{
 	font-style: normal;
 }
 
-a:hover {
+.Puissance:hover {
 	font-size: 115px;
 }
 
@@ -61,4 +61,30 @@ a:hover {
 	}
 }
 
+button{
+	background-color: black;
+	color: white;
+	font-size: 20px;
+	border-radius: 10%;
+}
+
+.button1{
+	margin-left: 585px;
+}
+
+#score{
+	text-align: center;
+	background-color: black;
+	padding: 10px 10px;
+	color: white;
+	margin-right: 650px;
+	margin-left: 650px;
+	margin-top: 20px;
+	font-size: 25px;
+	border-radius: 10%;
+}
+
+#score:hover{
+	font-size: 30px;
+}
 
