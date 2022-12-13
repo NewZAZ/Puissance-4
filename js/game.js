@@ -332,7 +332,7 @@ function showTime(){
     let minute = Math.trunc(currentTimer / 60)
     let seconds = currentTimer % 60
 
-    elementById.innerHTML = "Temps de jeu: "
+    elementById.innerHTML = ""
     if (minute > 0) {
         if (minute < 10) {
             elementById.innerText += "0"
