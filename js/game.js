@@ -280,6 +280,7 @@ function cancel(){
     elementById.close();
     isStarted = false
     currentTimer = 0
+    window.location.href = "../puissance4.html";
 }
 
 function preStart() {
