@@ -281,7 +281,7 @@ function cancel(){
     elementById.close();
     isStarted = false
     currentTimer = 0
-    window.location.href = "../puissance4.html";
+    window.history.back()
 }
 
 function preStart() {
@@ -323,7 +323,7 @@ setInterval(() => {
 
     showTime()
 
-}, 200)
+}, 1000)
 
 function showTime(){
     const elementById = document.getElementById("timer");
