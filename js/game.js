@@ -6,6 +6,8 @@ let currentTimer = 0
 
 let isStarted = false
 
+let score = [0,0]
+
 function initBoard(xSize, ySize) {
 
 
@@ -54,7 +56,7 @@ function showBoard() {
 
 function checkWin(x, y) {
     if (checkColumn() || checkRow() || checkDiagonal(x, y)) {
-
+        score[currentPlayer-1] += 1
         stop()
     }
 
@@ -278,7 +280,7 @@ function preStart() {
     currentTimer = 0
     document.getElementById("win").close()
 
-    showTime()
+
 
     const elementById = document.getElementById("start");
     elementById.innerHTML = "<h1>Choisissez la taille du puissance 4</h1>"
@@ -295,6 +297,8 @@ function preStart() {
 }
 
 function start(xSize, ySize) {
+    displayScore()
+    showTime()
     initBoard(xSize, ySize)
 
     showBoard()
@@ -319,7 +323,7 @@ function showTime(){
     let minute = Math.trunc(currentTimer / 60)
     let seconds = currentTimer % 60
 
-    elementById.innerHTML = ""
+    elementById.innerHTML = "Temps de jeu: "
     if (minute > 0) {
         if (minute < 10) {
             elementById.innerText += "0"
@@ -333,6 +337,12 @@ function showTime(){
         elementById.innerText += "0"
     }
     elementById.innerText += seconds
+}
+
+function displayScore(){
+    const elementById = document.getElementById("score");
+
+    elementById.innerText = score[0] +" VS "+score[1]
 }
 
 
