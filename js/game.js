@@ -6,6 +6,8 @@ let currentTimer = 0
 
 let isStarted = false
 
+let lastScore = []
+
 let score = [0,0]
 
 function initBoard(xSize, ySize) {
@@ -57,6 +59,7 @@ function showBoard() {
 function checkWin(x, y) {
     if (checkColumn() || checkRow() || checkDiagonal(x, y)) {
         score[currentPlayer-1] += 1
+        lastScore.push(score)
         stop()
     }
 
@@ -332,7 +335,6 @@ function showTime(){
     let minute = Math.trunc(currentTimer / 60)
     let seconds = currentTimer % 60
 
-    elementById.innerHTML = "Temps de jeu: "
     if (minute > 0) {
         if (minute < 10) {
             elementById.innerText += "0"
