@@ -2,7 +2,7 @@ body{
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	animation: gradient 12s ease infinite;
 	background-size: 400% 400%;
-	background: linear-gradient(-45deg, rgb(2, 27, 62), #0d1c88, #0d7da6, #0bd1ce) ;
+	background: linear-gradient(-45deg, rgb(2, 27, 62), #0d1c88, #0d7da6, #0bd1ce) 
 }
 header{
 	margin-top: 5%;
