@@ -275,6 +275,13 @@ function stop(){
     elementById.showModal()
 }
 
+function cancel(){
+    const elementById = document.getElementById("win");
+    elementById.close();
+    isStarted = false
+    currentTimer = 0
+}
+
 function preStart() {
     isStarted = false
     currentTimer = 0
